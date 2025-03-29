@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <!-- <a href="cart.html" class="cart-link">🛒 View Cart</a> -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+        
+        }
+        
+
+        .product {
+            width: 250px;
+            background: white;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+        button {
+            background: #db4444;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Our Products</h2>
+    <button onclick="goToCart()">🛒 View Cart</button>
+    <div class="container" id="product-list"></div>
+
+    <script>
+        fetch("https://fakestoreapi.com/products")
+            .then(res => res.json())
+            .then(products => {
+                let container = document.getElementById("product-list");
+                products.forEach(product => {
+                    let div = document.createElement("div");
+                    div.classList.add("product");
+                    div.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}">
+                        <h3>${product.title.substring(0, 20)}...</h3>
+                        <p class="price">$${product.price}</p>
+                        <button onclick="viewProduct(${product.id})">View Details</button>
+                        <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        // responsible for navigating the user to the product
+        //  details page when they click on a product.
+        function viewProduct(id) {
+            window.location.href = `ProductDetails.html?id=${id}`;
+        }
+
+        function addToCart(productId) {
+            // Get existing cart from localStorage or create an empty array
+            let cart = JSON.parse(localStorage.getItem("Cart")) || [];
+
+            // Check if the product is already in the cart
+            let existingProduct = cart.find(item => item.id === productId);
+
+            if (existingProduct) {
+                existingProduct.quantity += 1;  // Increase quantity if exists
+            } else {
+                // Get product details from the API
+                fetch(`https://fakestoreapi.com/products/${productId}`)
+                    .then(res => res.json())
+                    .then(product => {
+                        cart.push({ id: product.id, title: product.title, price: product.price, quantity: 1 });
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        alert("Added to cart! 🛒");
+                    });
+            }
+
+            // Update local storage
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+
+
+        function goToCart() {
+            window.location.href = "cart.html";
+        }
+    </script>
+
+</body>
+
+</html>
