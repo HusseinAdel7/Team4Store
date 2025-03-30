@@ -68,7 +68,7 @@
 
     <nav class="navbar navbar-expand-lg sticky-top header-transperant">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="Index.html">
           <h6>Team 4 Store <span class="badge bg-danger">beta</span></h6>
         </a>
         <button
@@ -85,7 +85,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="Index.html"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="ContactUs.html">Contact</a>
@@ -94,7 +96,7 @@
               <a class="nav-link" href="AboutUs.html">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Signupt.html">Signup</a>
+              <a class="nav-link" href="Login.html">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Register.html">Register</a>
@@ -131,8 +133,10 @@
               class="dropdown-menu mt-3 list-unstyled"
               aria-labelledby="navbarDropdown"
             >
-              <li><a class="dropdown-item" href="#">Orders</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="Orders.html">Orders</a></li>
+              <li>
+                <a class="dropdown-item" href="Settings.html">Settings</a>
+              </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
                 <a class="dropdown-item text-danger" href="#">Logout</a>
@@ -143,9 +147,11 @@
           <div class="d-flex gap-10 justify-content-between p-2">
             <a class="nav-link" href="Cart.html" style="padding-right: 20px">
               <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+              <span id="cartCount" class="badge bg-danger">0</span>
             </a>
             <a class="nav-link" href="Wishlist.html">
               <i class="far fa-heart fa-2xl"></i>
+              <span id="wishlistCount" class="badge bg-danger">0</span>
             </a>
           </div>
         </div>
@@ -293,7 +299,13 @@
       </div>
 
       <div class="owl-carousel owl-theme">
-        <div class="item">
+        <div
+          class="item"
+          data-id="1"
+          data-name="AM-22 Laptop V"
+          data-price="999"
+          data-image="/assets/images/thumbnail-blade15-advanced-model.png"
+        >
           <div class="px-0 image-container" style="position: relative">
             <img
               src="/assets/images/thumbnail-blade15-advanced-model.png"
@@ -302,289 +314,27 @@
             />
             <div class="discount-bar">-30%</div>
             <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
+              <div class="heart-icon" style="cursor: pointer">
+                <i class="fa-regular fa-heart add-to-wishlist"></i>
               </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
+              <div class="eye-icon">
+                <a href="ProductDetails.html?id=1"
+                  ><i class="fa-regular fa-eye"></i
+                ></a>
+              </div>
             </div>
             <a href="#" class="btnaddtocart">Add to Cart</a>
           </div>
 
           <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
+            <h6>AM-22 Laptop V</h6>
             <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
+              <h6 class="text-danger">$999</h6>
               <h6
                 class="original-price"
                 style="font-size: 13px; padding-top: 2px"
               >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (86)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-advanced-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-30%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>DMC-900 Laptop V</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">999$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                1299$
+                $1299
               </h6>
             </div>
             <div>
@@ -614,32 +364,30 @@
       <h4 class="mb-3 fw-bolder">Browse By Category</h4>
 
       <div class="categorycontainer">
-        <div class="categoryitems">
+        <a href="Categories.html?category=mobile" class="categoryitems">
           <i class="fa-solid fa-mobile"></i>
           <h4>mobile</h4>
-        </div>
-        <div class="categoryitems">
+        </a>
+        <a href="Categories.html?category=computer" class="categoryitems">
           <i class="fa-solid fa-computer"></i>
           <h4>computer</h4>
-        </div>
-        <div class="categoryitems">
+        </a>
+        <a href="Categories.html?category=camera" class="categoryitems">
           <i class="fa-solid fa-camera"></i>
-          <h4>
-            <h4>camera</h4>
-          </h4>
-        </div>
-        <div class="categoryitems">
+          <h4>camera</h4>
+        </a>
+        <a href="Categories.html?category=clock" class="categoryitems">
           <i class="fa-solid fa-clock"></i>
           <h4>clock</h4>
-        </div>
-        <div class="categoryitems">
+        </a>
+        <a href="Categories.html?category=headphones" class="categoryitems">
           <i class="fa-solid fa-headphones"></i>
           <h4>headphones</h4>
-        </div>
-        <div class="categoryitems">
+        </a>
+        <a href="Categories.html?category=gamepad" class="categoryitems">
           <i class="fa-solid fa-gamepad"></i>
           <h4>gamepad</h4>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -656,22 +404,30 @@
       <div style="display: flex; justify-content: space-between">
         <h4 class="mb-3 fw-bolder">Best Selling Products</h4>
 
-        <button
+        <a
+          href="Products.html"
           style="
             background-color: #db4444;
-            padding: 10px 20px 10px 20px;
+            padding: 10px 50px 10px 50px;
             border-radius: 5px;
             color: white;
             border: none;
+            text-decoration: none;
           "
         >
-          view all
-        </button>
+          View All
+        </a>
       </div>
       <br />
 
       <div class="owl-carousel owl-theme">
-        <div class="item">
+        <div
+          class="item"
+          data-id="2"
+          data-name="AM-01 Labtop X"
+          data-price="599"
+          data-image="/assets/images/thumbnail-blade15-advanced-model.png"
+        >
           <div class="px-0 image-container" style="position: relative">
             <img
               src="/assets/images/thumbnail-blade15-base-model.png"
@@ -680,296 +436,34 @@
             />
             <div class="discount-bar">-25%</div>
             <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
+              <div class="heart-icon" style="cursor: pointer">
+                <i class="fa-regular fa-heart add-to-wishlist"></i>
               </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
+              <div class="eye-icon">
+                <a href="ProductDetails.html?id=1"
+                  ><i class="fa-regular fa-eye"></i
+                ></a>
+              </div>
             </div>
             <a href="#" class="btnaddtocart">Add to Cart</a>
           </div>
 
           <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
+            <h6>AM-01 Labtop X</h6>
             <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
+              <h6 class="text-danger">$599</h6>
               <h6
                 class="original-price"
                 style="font-size: 13px; padding-top: 2px"
               >
-                999$
+                $999
               </h6>
             </div>
             <div>
-              <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="px-0 image-container" style="position: relative">
-            <img
-              src="/assets/images/thumbnail-blade15-base-model.png"
-              height="100%"
-              style="padding-bottom: 10px; padding: 20px"
-            />
-            <div class="discount-bar">-25%</div>
-            <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
-              </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
-            </div>
-            <a href="#" class="btnaddtocart">Add to Cart</a>
-          </div>
-
-          <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
-            <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
-              <h6
-                class="original-price"
-                style="font-size: 13px; padding-top: 2px"
-              >
-                999$
-              </h6>
-            </div>
-            <div>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star"></span>
               <span class="text-secondary"> (69)</span>
             </div>
@@ -1031,7 +525,13 @@
       <br />
 
       <div class="owl-carousel owl-theme">
-        <div class="item">
+        <div
+          class="item"
+          data-id="3"
+          data-name="H6 Wired LT"
+          data-price="599"
+          data-image="/assets/images/audio-nb.png"
+        >
           <div class="px-0 image-container" style="position: relative">
             <img
               src="/assets/images/audio-nb.png"
@@ -1040,38 +540,48 @@
             />
             <div class="discount-bar">-25%</div>
             <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
+              <div class="heart-icon" style="cursor: pointer">
+                <i class="fa-regular fa-heart add-to-wishlist"></i>
               </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
+              <div class="eye-icon">
+                <a href="ProductDetails.html?id=1"
+                  ><i class="fa-regular fa-eye"></i
+                ></a>
+              </div>
             </div>
             <a href="#" class="btnaddtocart">Add to Cart</a>
           </div>
 
           <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
+            <h6>H6 Wired LT</h6>
             <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
+              <h6 class="text-danger">$599</h6>
               <h6
                 class="original-price"
                 style="font-size: 13px; padding-top: 2px"
               >
-                999$
+                $999
               </h6>
             </div>
             <div>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
+              <span class="fa fa-star"></span>
+              <span class="text-secondary"> (4)</span>
             </div>
           </div>
         </div>
       </div>
       <div class="owl-carousel owl-theme">
-        <div class="item">
+        <div
+          class="item"
+          data-id="3"
+          data-name="H6 Wired LT"
+          data-price="599"
+          data-image="/assets/images/audio-nb.png"
+        >
           <div class="px-0 image-container" style="position: relative">
             <img
               src="/assets/images/audio-nb.png"
@@ -1080,49 +590,55 @@
             />
             <div class="discount-bar">-25%</div>
             <div>
-              <div class="heart-icon">
-                <i class="fa-regular fa-heart"></i>
+              <div class="heart-icon" style="cursor: pointer">
+                <i class="fa-regular fa-heart add-to-wishlist"></i>
               </div>
-              <div class="eye-icon"><i class="fa-regular fa-eye"></i></div>
+              <div class="eye-icon">
+                <a href="ProductDetails.html?id=1"
+                  ><i class="fa-regular fa-eye"></i
+                ></a>
+              </div>
             </div>
             <a href="#" class="btnaddtocart">Add to Cart</a>
           </div>
 
           <div style="padding: 10px; width: 100%; padding-top: 40px">
-            <h6>AKM-666 Wired Labtop</h6>
+            <h6>H6 Wired LT</h6>
             <div class="d-flex gap-2 justify-content-start mt-2">
-              <h6 class="text-danger">599$</h6>
+              <h6 class="text-danger">$599</h6>
               <h6
                 class="original-price"
                 style="font-size: 13px; padding-top: 2px"
               >
-                999$
+                $999
               </h6>
             </div>
             <div>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star checkedrating"></span>
-              <span class="fa fa-star checkedrating"></span>
               <span class="fa fa-star"></span>
-              <span class="text-secondary"> (69)</span>
+              <span class="fa fa-star"></span>
+              <span class="text-secondary"> (4)</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="d-flex justify-content-center pt-4">
-        <button
+        <a
+          href="Products.html"
           style="
             background-color: #db4444;
             padding: 10px 50px 10px 50px;
             border-radius: 5px;
             color: white;
             border: none;
+            text-decoration: none;
           "
         >
           View All Products
-        </button>
+        </a>
       </div>
     </section>
 
@@ -1319,6 +835,7 @@
         </div>
       </div>
     </section>
+
     <footer id="footer-last" class="text-light" style="background: #000000">
       <div class="container-fluid py-4">
         <div class="row">
@@ -1408,7 +925,7 @@
           <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0">
             <h5 class="text-uppercase">Discover</h5>
 
-            <ul class="list-unstyled mb-0" style="">
+            <ul class="list-unstyled mb-0">
               <li>
                 <a
                   href="#!"
@@ -1446,7 +963,7 @@
           <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0">
             <h5 class="text-uppercase">Who are we</h5>
 
-            <ul class="list-unstyled mb-0" style="">
+            <ul class="list-unstyled mb-0">
               <li>
                 <a
                   href="#!"
@@ -1491,58 +1008,34 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-3">
-              <h5>Follow us on social media</h5>
-              <!-- <ul class="list-unstyled style">
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/facebook.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/snapchat.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/twitter.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/instagram.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <br />
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/linkedin.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/messenger.svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/whatsapp (2).svg"
-                        style="height: 45px"
-                      />
-                    </li>
-                    <li class="list-inline-item hvr-shrink">
-                      <img
-                        src="assets/images/Social media/youtube.svg"
-                        style="height: 57px; width: 45px"
-                      />
-                    </li>
-                  </ul> -->
+              <h5 class="pb-2">Follow us on social media</h5>
+              <ul class="list-unstyled d-flex flex-wrap gap-3">
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-facebook fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-snapchat fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-x-twitter fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink mb-3">
+                  <i class="fa-brands fa-instagram fa-2xl"></i>
+                </li>
+
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-linkedin fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-facebook-messenger fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                </li>
+                <li class="list-inline-item hvr-shrink">
+                  <i class="fa-brands fa-youtube fa-2xl"></i>
+                </li>
+              </ul>
             </div>
 
             <div class="col-md-2 bg-white w-auto rounded-4" id="ipnone">
@@ -1596,8 +1089,8 @@
                 <li class="list-inline-item">
                   <a href="#">Site Map</a>
                 </li>
-                <span>&nbsp | &nbsp</span>
-                <div class="btn-group dropup">
+                <!-- <span>&nbsp | &nbsp</span> -->
+                <!-- <div class="btn-group dropup">
                   <div
                     type=""
                     class="dropdown-toggle text-light"
@@ -1644,7 +1137,7 @@
                       </a>
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </ul>
             </div>
           </div>

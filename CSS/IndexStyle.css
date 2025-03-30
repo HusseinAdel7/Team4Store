@@ -88,6 +88,7 @@ body {
   color: black;
   border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
 }
 .categorycontainer {
   padding: 20px;
