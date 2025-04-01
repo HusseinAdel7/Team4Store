@@ -207,8 +207,8 @@ body {
   .dropup,
   .dropup-center {
     position: relative;
-    top: 0;
-    left: 0;
+    top: 0 !important;
+    left: 0 !important;
   }
 }
 
