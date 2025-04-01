@@ -7,6 +7,16 @@ const btnText = document.getElementById("btnText");
 const loadingSpinner = document.getElementById("loadingSpinner");
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
+const userEmail = document.getElementById("userEmail");
+
+window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get("email");
+  if (email) {
+    emailInput.value = decodeURIComponent(email);
+    validateForm();
+  }
+};
 
 function validateForm() {
   const email = emailInput.value.trim();
@@ -16,14 +26,24 @@ function validateForm() {
 
   let isValid = true;
 
-  if (!emailRegex.test(email) && !phoneRegex.test(email)) {
+  if (!email) {
+    emailError.textContent = "Email or phone number is required";
+    emailError.style.display = "block";
+    isValid = false;
+  } else if (!emailRegex.test(email) && !phoneRegex.test(email)) {
+    emailError.textContent = "Invalid email or phone number";
     emailError.style.display = "block";
     isValid = false;
   } else {
     emailError.style.display = "none";
   }
 
-  if (password.length < 6) {
+  if (!password) {
+    passwordError.textContent = "Password is required";
+    passwordError.style.display = "block";
+    isValid = false;
+  } else if (password.length < 6) {
+    passwordError.textContent = "Password must be at least 6 characters";
     passwordError.style.display = "block";
     isValid = false;
   } else {
@@ -33,29 +53,90 @@ function validateForm() {
   loginBtn.disabled = !isValid;
   loginBtn.style.opacity = isValid ? "1" : "0.3";
   loginBtn.style.cursor = isValid ? "pointer" : "not-allowed";
+
+  return isValid;
 }
 
 emailInput.addEventListener("input", validateForm);
 passwordInput.addEventListener("input", validateForm);
 
-loginBtn.addEventListener("click", function () {
+async function loginUser() {
+  if (!validateForm()) return;
+
   loginBtn.disabled = true;
   btnText.style.display = "none";
-  loadingSpinner.style.display = "inline";
+  loadingSpinner.style.display = "inline-block";
 
-  setTimeout(() => {
-    const userEmailValue = emailInput.value.trim();
-    userEmail.textContent = userEmailValue;
-    // hide all content
-    mainSection.style.display = "none";
-    // show success message
-    successMessage.style.display = "block";
-    // simulate backend response delay
-  }, 1500);
-});
+  const loginData = {
+    email: emailInput.value.trim(),
+    password: passwordInput.value.trim(),
+  };
+
+  try {
+    const response = await fetch(
+      "https://furnistyle.runasp.net/api/Account/Login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(loginData),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+
+    if (response.ok) {
+      localStorage.setItem(
+        "userCredentials",
+        JSON.stringify({
+          email: loginData.email,
+          token: data.token,
+          name: data.displayName,
+        })
+      );
+
+      userEmail.textContent = loginData.email;
+      mainSection.style.display = "none";
+      successMessage.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "/dashboard.html";
+      }, 2000);
+    } else {
+      throw new Error(data.message || "login failed");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert(error.message || "an error occurred. please try again.");
+  } finally {
+    loginBtn.disabled = false;
+    btnText.style.display = "inline";
+    loadingSpinner.style.display = "none";
+  }
+}
+
+loginBtn.addEventListener("click", loginUser);
 
 document.querySelectorAll("#signInBtn").forEach((button) => {
   button.addEventListener("click", function () {
     document.getElementById("message").style.display = "block";
   });
 });
+
+// check if user is already logged in
+function checkLoginStatus() {
+  const credentials = localStorage.getItem("userCredentials");
+  if (credentials) {
+    const { email } = JSON.parse(credentials);
+    userEmail.textContent = email;
+    mainSection.style.display = "none";
+    successMessage.style.display = "block";
+    setTimeout(() => {
+      window.location.href = "/dashboard.html";
+    }, 4000);
+  }
+}
+
+checkLoginStatus();
