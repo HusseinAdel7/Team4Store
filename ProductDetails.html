@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+      
+        body {
+            font-family: 'Poppins', sans-serif;
+        
+            background: #f9f9f9;
+           
+            text-align: center;
+            padding: 20px;
+            color: #333;
+         
+        }
+
+        .product-container {
+            width: 380px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+        
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            border: 1px solid #ddd;
+         
+        }
+
+       
+        .product-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+     
+        .product-container img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+     
+        .product-container:hover img {
+            transform: scale(1.05);
+        }
+
+      
+        .price {
+            font-size: 22px;
+            color: #e91e63;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+  
+        button {
+            background: #db4444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            margin: 7px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+    
+        button:hover {
+            background: #b03030;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .product-container {
+                width: 90%;
+            }
+
+            .product-container img {
+                height: 250px;
+            }
+        }
+
+       
+    </style> 
+</head>
+
+<body>
+
+    <h2>Product Details</h2>
+    <div class="product-container" id="product-details"></div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("id");
+
+        fetch(`https://fakestoreapi.com/products/${productId}`)
+            .then(res => res.json())
+            .then(product => {
+                let container = document.getElementById("product-details");
+                container.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3>${product.title}</h3>
+                    <p class="price">$${product.price}</p>
+                    <p>${product.description}</p>
+                    <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
+                    <button onclick="goBack()">Go Back</button>
+                      <button onclick="goHome()">Go Home</button>
+                `;
+            });
+
+        function addToCart(id) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (!cart.includes(id)) {
+                cart.push(id);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert("Product added to cart!");
+            } else {
+                alert("Product already in cart!");
+            }
+        }
+
+        function goHome() {
+            window.location.href = "index.html";
+        }
+        function goBack() {
+            window.location.href = "Products.html";
+        }
+    </script>
+
+</body>
+
+</html>

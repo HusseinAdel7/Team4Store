@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
     <title>Product List</title>
-    <!-- <a href="cart.html" class="cart-link">🛒 View Cart</a> -->
 
     <style>
         body {
@@ -24,10 +27,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-
-        
         }
-        
 
         .product {
             width: 250px;
@@ -66,50 +66,127 @@
         button:hover {
             background: #45a049;
         }
+
+      
+        .filter-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+         
+        }
+
+
+      
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #db4444;
+            border-radius: 8px;
+            background-color: white;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            appearance: none;
+           
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23db4444" d="M2 5L0 0h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 30px;
+           
+        }
+
+      
+        select:hover,
+        select:focus {
+            border-color: #b73232;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 
 <body>
 
     <h2>Our Products</h2>
+
+ 
+    <div class="filter-container">
+        <label for="category-filter">Filter by Category: </label>
+        <select id="category-filter" onchange="filterProducts()">
+            <option value="all">All Categories</option>
+        </select>
+    </div>
+
     <button onclick="goToCart()">🛒 View Cart</button>
     <div class="container" id="product-list"></div>
 
     <script>
+        let allProducts = [];
+
         fetch("https://fakestoreapi.com/products")
             .then(res => res.json())
             .then(products => {
-                let container = document.getElementById("product-list");
-                products.forEach(product => {
-                    let div = document.createElement("div");
-                    div.classList.add("product");
-                    div.innerHTML = `
-                        <img src="${product.image}" alt="${product.title}">
-                        <h3>${product.title.substring(0, 20)}...</h3>
-                        <p class="price">$${product.price}</p>
-                        <button onclick="viewProduct(${product.id})">View Details</button>
-                        <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
-                    `;
-                    container.appendChild(div);
-                });
+                allProducts = products;
+                displayProducts(allProducts);
+                loadCategories();
             });
-        // responsible for navigating the user to the product
-        //  details page when they click on a product.
+
+        function displayProducts(products) {
+            let container = document.getElementById("product-list");
+            container.innerHTML = ""; 
+
+            products.forEach(product => {
+                let div = document.createElement("div");
+                div.classList.add("product");
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3>${product.title.substring(0, 20)}...</h3>
+                    <p class="price">$${product.price}</p>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <button onclick="viewProduct(${product.id})">View Details</button>
+                    <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function loadCategories() {
+            let categories = [...new Set(allProducts.map(p => p.category))];
+            let filterDropdown = document.getElementById("category-filter");
+
+            categories.forEach(category => {
+                let option = document.createElement("option");
+                option.value = category;
+                option.textContent = category;
+                filterDropdown.appendChild(option);
+            });
+        }
+
+        function filterProducts() {
+            let selectedCategory = document.getElementById("category-filter").value;
+            if (selectedCategory === "all") {
+                displayProducts(allProducts);
+            } else {
+                let filtered = allProducts.filter(p => p.category === selectedCategory);
+                displayProducts(filtered);
+            }
+        }
+
         function viewProduct(id) {
             window.location.href = `ProductDetails.html?id=${id}`;
         }
 
         function addToCart(productId) {
-            // Get existing cart from localStorage or create an empty array
-            let cart = JSON.parse(localStorage.getItem("Cart")) || [];
-
-            // Check if the product is already in the cart
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
             let existingProduct = cart.find(item => item.id === productId);
 
             if (existingProduct) {
-                existingProduct.quantity += 1;  // Increase quantity if exists
+                existingProduct.quantity += 1;
             } else {
-                // Get product details from the API
                 fetch(`https://fakestoreapi.com/products/${productId}`)
                     .then(res => res.json())
                     .then(product => {
@@ -119,10 +196,8 @@
                     });
             }
 
-            // Update local storage
             localStorage.setItem("cart", JSON.stringify(cart));
         }
-
 
         function goToCart() {
             window.location.href = "cart.html";
