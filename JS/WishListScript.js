@@ -1,12 +1,31 @@
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [
-    { id: 1, name: "Luxury Sofa", price: 1200, image: "sofa.jpg" },
-    { id: 2, name: "Modern Chair", price: 450, image: "chair.jpg" }
-];
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Fetch furniture items from API and populate wishlist
+async function fetchWishlist() {
+    try {
+        const response = await fetch("https://furnistyle.runasp.net/api/Furniture/CreateFurniture");
+        const data = await response.json();
+
+        if (wishlist.length === 0) {
+            wishlist = data.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.image || "default.jpg"
+            }));
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        }
+        renderWishlist();
+    } catch (error) {
+        console.error("Error fetching wishlist data:", error);
+    }
+}
 
 function renderWishlist() {
     const wishlistContainer = document.getElementById("wishlist-items");
     wishlistContainer.innerHTML = "";
+
     wishlist.forEach((item, index) => {
         wishlistContainer.innerHTML += `
             <div class="wishlist-item">
@@ -17,6 +36,7 @@ function renderWishlist() {
                 <button class="remove-btn" onclick="removeFromWishlist(${index})">X</button>
             </div>`;
     });
+
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
 
@@ -39,4 +59,5 @@ function moveAllToCart() {
     renderWishlist();
 }
 
-document.addEventListener("DOMContentLoaded", renderWishlist);
+// Initialize wishlist
+document.addEventListener("DOMContentLoaded", fetchWishlist);
