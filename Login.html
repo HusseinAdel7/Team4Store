@@ -241,26 +241,45 @@
       style="
         display: none;
         text-align: center;
-        color: rgb(15, 180, 15);
-        margin-top: 100px;
+        color: #333;
+        padding: 60px 20px;
         min-height: 100vh;
+        background: linear-gradient(to bottom right, #f5f7fa, #e4eaf1);
       "
     >
-      <img src="/assets/images/ok.svg" height="220" />
-      <h2 style="font-size: 45px; font-weight: bold">success login</h2>
-      <div class="fs-3 pt-4">
-        <p>welcome , <span class="fw-bold" id="userEmail"></span></p>
-      </div>
+      <div
+        style="
+          display: inline-block;
+          background-color: white;
+          padding: 40px;
+          border-radius: 20px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin: auto;
+        "
+      >
+        <img
+          src="/assets/images/confetti.gif"
+          height="150"
+          style="margin-bottom: 30px"
+        />
+        <h2 style="font-size: 36px; font-weight: bold; color: #ffc738">
+          Login Success
+        </h2>
 
-      <p class="text-black fs-3 pt-4">
-        if you are admin you will be redirected to the dashboard ,
-        <br />
-        if you are a user you will be redirected to the main shopping page ...
-      </p>
-      <p class="text-secondary fs-3 pt-3">
-        this is a successful response message from furnistyle API server (200
-        OK)
-      </p>
+        <p style="font-size: 20px; margin-top: 20px">
+          Welcome,
+          <span id="userRole" style="font-weight: bold; color: #007bff"></span>
+          <span id="userEmail" style="font-weight: bold; color: #343a40"></span>
+        </p>
+
+        <p style="font-size: 18px; margin-top: 20px; color: #555">
+          You will be redirected shortly based on your role:
+          <br />
+          <strong>Admins</strong> go to the dashboard, <strong>Users</strong> go
+          to the shopping page.
+        </p>
+      </div>
     </div>
 
     <footer id="footer-last" class="text-light" style="background: #000000">
