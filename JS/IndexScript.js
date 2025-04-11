@@ -196,3 +196,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("error fetching products", error);
     });
 });
+
+function logout() {
+  localStorage.removeItem("userCredentials");
+  alert("You have been logged out.");
+  window.location.href = "/";
+}
