@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .furniture-card {
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .furniture-card:hover {
+            transform: translateY(-5px);
+        }
+        .furniture-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        .view-toggle {
+            cursor: pointer;
+        }
+        .view-toggle.active {
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="bg-dark text-white">
+            <div class="sidebar-header">
+                <h3>Furniture Admin</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#furnitureSubmenu" data-bs-toggle="collapse" aria-expanded="true">
+                        <i class="fas fa-couch"></i> Furniture
+                    </a>
+                    <ul class="collapse show list-unstyled" id="furnitureSubmenu">
+                        <li><a href="furniture.html">All Furniture</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#addFurnitureModal">Add New</a></li>
+                    </ul>
+                </li>
+                <!-- Other menu items -->
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="ms-auto">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user"></i> Admin
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Furniture List</h5>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFurnitureModal">
+                            <i class="fas fa-plus"></i> Add New Furniture
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Room</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><img src="https://via.placeholder.com/50" alt="Furniture" class="img-thumbnail"></td>
+                                        <td>Modern Sofa</td>
+                                        <td>Living Room</td>
+                                        <td>Living Room</td>
+                                        <td>$599.99</td>
+                                        <td>15</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editFurnitureModal">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" onclick="deleteFurniture(1)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Furniture Modal -->
+    <div class="modal fade" id="addFurnitureModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Furniture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addFurnitureForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Category</option>
+                                    <option value="1">Living Room</option>
+                                    <option value="2">Bedroom</option>
+                                    <option value="3">Kitchen</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Room</label>
+                                <select class="form-select" required>
+                                    <option value="">Select Room</option>
+                                    <option value="1">Living Room</option>
+                                    <option value="2">Bedroom</option>
+                                    <option value="3">Kitchen</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price</label>
+                                <input type="number" class="form-control" step="0.01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Image</label>
+                                <input type="file" class="form-control" accept="image/*">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveFurniture()">Save Furniture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Furniture Modal -->
+    <div class="modal fade" id="editFurnitureModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Furniture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editFurnitureForm">
+                        <!-- Same form fields as add modal -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateFurniture()">Update Furniture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function saveFurniture() {
+            // Add your save logic here
+            const form = document.getElementById('addFurnitureForm');
+            if (form.checkValidity()) {
+                // Process form data
+                alert('Furniture saved successfully!');
+                $('#addFurnitureModal').modal('hide');
+            } else {
+                form.reportValidity();
+            }
+        }
+
+        function updateFurniture() {
+            // Add your update logic here
+            const form = document.getElementById('editFurnitureForm');
+            if (form.checkValidity()) {
+                // Process form data
+                alert('Furniture updated successfully!');
+                $('#editFurnitureModal').modal('hide');
+            } else {
+                form.reportValidity();
+            }
+        }
+
+        function deleteFurniture(id) {
+            if (confirm('Are you sure you want to delete this furniture?')) {
+                // Add your delete logic here
+                alert('Furniture deleted successfully!');
+            }
+        }
+    </script>
+</body>
+</html> 
