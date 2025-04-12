@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
     <style>
-      
         body {
             font-family: 'Poppins', sans-serif;
-        
+
             background: #f9f9f9;
-           
+
             text-align: center;
             padding: 20px;
             color: #333;
-         
+
         }
 
         .product-container {
@@ -25,34 +24,34 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-        
+
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
             border: 1px solid #ddd;
-         
+
         }
 
-       
+
         .product-container:hover {
             transform: translateY(-5px);
             box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
         }
 
-     
+
         .product-container img {
             width: 100%;
-            height: 280px;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
 
-     
+
         .product-container:hover img {
             transform: scale(1.05);
         }
 
-      
+
         .price {
             font-size: 22px;
             color: #e91e63;
@@ -60,7 +59,7 @@
             margin: 10px 0;
         }
 
-  
+
         button {
             background: #db4444;
             color: white;
@@ -74,7 +73,7 @@
             transition: background 0.3s ease, transform 0.2s ease;
         }
 
-    
+
         button:hover {
             background: #b03030;
             transform: scale(1.05);
@@ -89,9 +88,7 @@
                 height: 250px;
             }
         }
-
-       
-    </style> 
+    </style>
 </head>
 
 <body>
@@ -99,43 +96,81 @@
     <h2>Product Details</h2>
     <div class="product-container" id="product-details"></div>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const productId = params.get("id");
+   <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get("id"));
 
-        fetch(`https://fakestoreapi.com/products/${productId}`)
-            .then(res => res.json())
-            .then(product => {
-                let container = document.getElementById("product-details");
-                container.innerHTML = `
-                    <img src="${product.image}" alt="${product.title}">
-                    <h3>${product.title}</h3>
-                    <p class="price">$${product.price}</p>
-                    <p>${product.description}</p>
-                    <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
-                    <button onclick="goBack()">Go Back</button>
-                      <button onclick="goHome()">Go Home</button>
-                `;
-            });
+    if (!productId) {
+      console.error("Invalid product ID in URL");
+      return;
+    }
 
-        function addToCart(id) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            if (!cart.includes(id)) {
-                cart.push(id);
-                localStorage.setItem("cart", JSON.stringify(cart));
-                alert("Product added to cart!");
-            } else {
-                alert("Product already in cart!");
-            }
+    // Fetch all products, then find the one with matching ID
+    fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
+      .then(res => res.json())
+      .then(products => {
+        const product = products.find(p => p.id === productId);
+
+        if (!product) {
+          document.getElementById("product-details").innerHTML = "<p>Product not found.</p>";
+          return;
         }
 
-        function goHome() {
-            window.location.href = "index.html";
+        const container = document.getElementById("product-details");
+
+        container.innerHTML = `
+          <img src="${product.pictureUrl}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150'">
+          <h3>${product.name.substring(0, 20)}...</h3>
+          <p class="price">$${product.price}</p>
+          <p>${product.description}</p>
+          <p><strong>Category:</strong> ${product.categoryName}</p>
+          <button onclick="addToCart(${product.id})">Add to Cart 🛒</button>
+          <button onclick="goBack()">Go Back</button>
+          <button onclick="goHome()">Go Home</button>
+        `;
+      })
+      .catch(err => {
+        console.error("Error fetching product list:", err);
+        document.getElementById("product-details").innerHTML = "<p>Failed to load product details.</p>";
+      });
+  });
+
+  function addToCart(productId) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Fetch all again to find the product info
+    fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
+      .then(res => res.json())
+      .then(products => {
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+          alert("Product not found.");
+          return;
         }
-        function goBack() {
-            window.location.href = "Products.html";
+
+        const existing = cart.find(item => item.id === productId);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.pictureUrl,
+            quantity: 1
+          });
         }
-    </script>
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Product added to cart!");
+      });
+  }
+
+  function goBack() {
+    window.history.back();
+  }
+</script>
 
 </body>
 
