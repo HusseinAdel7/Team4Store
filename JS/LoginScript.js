@@ -131,7 +131,7 @@ function checkLoginStatus() {
 
     setTimeout(() => {
       if (role === "Admin") {
-        window.location.href = "/dashboard.html";
+        window.location.href = "/Dashboard/index.html";
       } else {
         window.location.href = "/Index.html";
       }
