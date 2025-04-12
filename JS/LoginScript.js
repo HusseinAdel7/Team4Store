@@ -95,7 +95,7 @@ async function loginUser() {
 
       setTimeout(() => {
         if (data.role === "Admin") {
-          window.location.href = "Dashboard/dashboard.html";
+          window.location.href = "/Dashboard/index.html";
         } else {
           window.location.href = "/Index.html";
         }
@@ -131,7 +131,7 @@ function checkLoginStatus() {
 
     setTimeout(() => {
       if (role === "Admin") {
-        window.location.href = "Dashboard/dashboard.html";
+        window.location.href = "/Dashboard/index.html";
       } else {
         window.location.href = "/Index.html";
       }
