@@ -8,6 +8,7 @@ const loadingSpinner = document.getElementById("loadingSpinner");
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const userEmail = document.getElementById("userEmail");
+
 window.onload = function () {
   const urlParams = new URLSearchParams(window.location.search);
   const email = urlParams.get("email");
@@ -16,12 +17,14 @@ window.onload = function () {
     validateForm();
   }
 };
+
 function validateForm() {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9]{10,15}$/;
   let isValid = true;
+
   if (!email) {
     emailError.textContent = "Email or phone number is required";
     emailError.style.display = "block";
@@ -33,6 +36,7 @@ function validateForm() {
   } else {
     emailError.style.display = "none";
   }
+
   if (!password) {
     passwordError.textContent = "Password is required";
     passwordError.style.display = "block";
@@ -44,14 +48,17 @@ function validateForm() {
   } else {
     passwordError.style.display = "none";
   }
+
   loginBtn.disabled = !isValid;
   loginBtn.style.opacity = isValid ? "1" : "0.3";
   loginBtn.style.cursor = isValid ? "pointer" : "not-allowed";
 
   return isValid;
 }
+
 emailInput.addEventListener("input", validateForm);
 passwordInput.addEventListener("input", validateForm);
+
 async function loginUser() {
   if (!validateForm()) return;
 
@@ -63,6 +70,7 @@ async function loginUser() {
     email: emailInput.value.trim(),
     password: passwordInput.value.trim(),
   };
+
   try {
     const response = await fetch(
       "https://furnistyle.runasp.net/api/Account/Login",
@@ -76,19 +84,21 @@ async function loginUser() {
       }
     );
     const data = await response.json();
-    console.log(data);
+    console.log("Login response:", data);
 
     if (response.ok) {
       localStorage.setItem(
         "userCredentials",
         JSON.stringify({
-          email: loginData.email,
+          id: data.id,
+          email: data.email,
           token: data.token,
           name: data.displayName,
           role: data.role,
+          phoneNumber: data.phoneNumber,
         })
       );
-      userEmail.textContent = loginData.email;
+      userEmail.textContent = data.email;
       document.getElementById("userRole").textContent = data.role;
       mainSection.style.display = "none";
       successMessage.style.display = "block";
@@ -112,14 +122,12 @@ async function loginUser() {
     loadingSpinner.style.display = "none";
   }
 }
-
 loginBtn.addEventListener("click", loginUser);
 document.querySelectorAll("#signInBtn").forEach((button) => {
   button.addEventListener("click", function () {
     document.getElementById("message").style.display = "block";
   });
 });
-
 function checkLoginStatus() {
   const credentials = localStorage.getItem("userCredentials");
   if (credentials) {
