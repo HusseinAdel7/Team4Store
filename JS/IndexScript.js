@@ -1,4 +1,4 @@
-const endDate = new Date("April 12, 2025 00:00:00 PDT").getTime();
+const endDate = new Date("April 14, 2025 00:00:00 PDT").getTime();
 const countdown = setInterval(() => {
   const now = new Date().getTime();
   const timeLeft = endDate - now;
@@ -201,4 +201,28 @@ function logout() {
   localStorage.removeItem("userCredentials");
   alert("You have been logged out.");
   window.location.href = "/";
+}
+
+// *************************************
+const footerText = document.getElementById("footerText");
+const currentYear = new Date().getFullYear();
+footerText.innerHTML = `&copy; ${currentYear} All rights reserved Team 4 Store`;
+
+// *********************************************************
+
+const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
+
+if (userCredentials) {
+  const loginNav = document.getElementById("loginNavItem");
+  const registerNav = document.getElementById("registerNavItem");
+  if (loginNav) loginNav.style.display = "none";
+  if (registerNav) registerNav.style.display = "none";
+
+  const userNav = document.getElementById("userNavItem");
+  const userNameDisplay = document.getElementById("userNameDisplay");
+
+  if (userNav && userNameDisplay) {
+    userNameDisplay.textContent = `Welcome, ${userCredentials.name}`;
+    userNav.classList.remove("d-none");
+  }
 }
