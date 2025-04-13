@@ -1,126 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
+      body {
+        font-family: "Poppins", sans-serif;
 
-            background: #f9f9f9;
+        background: #f9f9f9;
 
-            text-align: center;
-            padding: 20px;
-            color: #333;
+        text-align: center;
+        padding: 20px;
+        color: #333;
+      }
 
-        }
+      .product-container {
+        width: 380px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        border: 1px solid #ddd;
+      }
+
+      .product-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-container img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .product-container:hover img {
+        transform: scale(1.05);
+      }
+
+      .price {
+        font-size: 22px;
+        color: #e91e63;
+        font-weight: 700;
+        margin: 10px 0;
+      }
+
+      button {
+        background: #db4444;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        margin: 7px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background: #b03030;
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 600px) {
         .product-container {
-            width: 380px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-            border: 1px solid #ddd;
-
+          width: 90%;
         }
-
-
-        .product-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
-        }
-
 
         .product-container img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+          height: 250px;
         }
+      }
 
-
-        .product-container:hover img {
-            transform: scale(1.05);
-        }
-
-
-        .price {
-            font-size: 22px;
-            color: #e91e63;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-
-        button {
-            background: #db4444;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
-            border-radius: 8px;
-            margin: 7px;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-
-
-        button:hover {
-            background: #b03030;
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-            .product-container {
-                width: 90%;
-            }
-
-            .product-container img {
-                height: 250px;
-            }
-        }
+      .star-rating .star {
+        font-size: 2rem;
+        color: #ddd;
+        cursor: pointer;
+      }
+      .star-rating .star.filled {
+        color: #ffc107;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h2>Product Details</h2>
     <div class="product-container" id="product-details"></div>
 
-   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get("id"));
+    <section>
+      <div class="container mt-4">
+        <h4>Rate this product by Leave a comment :</h4>
+        <div id="rating-stars" class="mb-3"></div>
+      </div>
+      <div class="container mt-4">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"></label>
+          <div class="mb-3">
+            <textarea
+              class="form-control"
+              id="commentInput"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+        <button id="saveCommentBtn" class="btn btn-primary">
+          Save Comment
+        </button>
 
-    if (!productId) {
-      console.error("Invalid product ID in URL");
-      return;
-    }
+        <div class="mt-4">
+          <h5>Previous Comment:</h5>
+          <div id="savedComment" class="border rounded p-3 bg-light">
+            <strong id="commentUser">Guest</strong>:
+            <span id="commentText">No comment yet.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get("id"));
 
-    // Fetch all products, then find the one with matching ID
-    fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
-      .then(res => res.json())
-      .then(products => {
-        const product = products.find(p => p.id === productId);
-
-        if (!product) {
-          document.getElementById("product-details").innerHTML = "<p>Product not found.</p>";
+        if (!productId) {
+          console.error("Invalid product ID in URL");
           return;
         }
 
-        const container = document.getElementById("product-details");
+        // Fetch all products, then find the one with matching ID
+        fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
+          .then((res) => res.json())
+          .then((products) => {
+            const product = products.find((p) => p.id === productId);
 
-        container.innerHTML = `
-          <img src="${product.pictureUrl}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150'">
+            if (!product) {
+              document.getElementById("product-details").innerHTML =
+                "<p>Product not found.</p>";
+              return;
+            }
+
+            const container = document.getElementById("product-details");
+
+            container.innerHTML = `
+          <img src="${product.pictureUrl}" alt="${
+              product.name
+            }" onerror="this.src='https://via.placeholder.com/150'">
           <h3>${product.name.substring(0, 20)}...</h3>
           <p class="price">$${product.price}</p>
           <p>${product.description}</p>
@@ -129,49 +175,120 @@
           <button onclick="goBack()">Go Back</button>
           <button onclick="goHome()">Go Home</button>
         `;
-      })
-      .catch(err => {
-        console.error("Error fetching product list:", err);
-        document.getElementById("product-details").innerHTML = "<p>Failed to load product details.</p>";
-      });
-  });
-
-  function addToCart(productId) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Fetch all again to find the product info
-    fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
-      .then(res => res.json())
-      .then(products => {
-        const product = products.find(p => p.id === productId);
-        if (!product) {
-          alert("Product not found.");
-          return;
-        }
-
-        const existing = cart.find(item => item.id === productId);
-        if (existing) {
-          existing.quantity += 1;
-        } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.pictureUrl,
-            quantity: 1
+          })
+          .catch((err) => {
+            console.error("Error fetching product list:", err);
+            document.getElementById("product-details").innerHTML =
+              "<p>Failed to load product details.</p>";
           });
+      });
+
+      function addToCart(productId) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Fetch all again to find the product info
+        fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
+          .then((res) => res.json())
+          .then((products) => {
+            const product = products.find((p) => p.id === productId);
+            if (!product) {
+              alert("Product not found.");
+              return;
+            }
+
+            const existing = cart.find((item) => item.id === productId);
+            if (existing) {
+              existing.quantity += 1;
+            } else {
+              cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.pictureUrl,
+                quantity: 1,
+              });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Product added to cart!");
+          });
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+
+      // ******************************************************************
+      // rating
+      document.addEventListener("DOMContentLoaded", () => {
+        const productId = new URLSearchParams(window.location.search).get("id");
+
+        const starContainer = document.getElementById("rating-stars");
+        const savedRating =
+          localStorage.getItem(`product-rating-${productId}`) || 0;
+        let currentRating = parseInt(savedRating);
+
+        function renderStars(rating) {
+          starContainer.innerHTML = "";
+          for (let i = 1; i <= 5; i++) {
+            const star = document.createElement("i");
+            star.className = `bi ${
+              i <= rating
+                ? "bi-star-fill text-warning"
+                : "bi-star text-secondary"
+            } fs-3 me-1`;
+            star.style.cursor = "pointer";
+            star.setAttribute("data-value", i);
+
+            star.addEventListener("click", () => {
+              currentRating = i;
+              localStorage.setItem(`product-rating-${productId}`, i);
+              renderStars(i);
+            });
+
+            starContainer.appendChild(star);
+          }
         }
 
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert("Product added to cart!");
+        renderStars(currentRating);
+
+        const commentInput = document.getElementById("commentInput");
+        const saveCommentBtn = document.getElementById("saveCommentBtn");
+        const commentUserEl = document.getElementById("commentUser");
+        const commentTextEl = document.getElementById("commentText");
+
+        const userData = JSON.parse(localStorage.getItem("userCredentials"));
+        const username = userData?.name || "Guest";
+
+        const savedCommentData = JSON.parse(
+          localStorage.getItem(`product-comment-${productId}`)
+        );
+        if (savedCommentData) {
+          commentUserEl.textContent = savedCommentData.username;
+          commentTextEl.textContent = savedCommentData.comment;
+          commentInput.value = savedCommentData.comment;
+        } else {
+          commentUserEl.textContent = username;
+          commentTextEl.textContent = "No comment yet.";
+        }
+
+        saveCommentBtn.addEventListener("click", () => {
+          const comment = commentInput.value.trim();
+          if (comment) {
+            const commentData = {
+              username: username,
+              comment: comment,
+              timestamp: new Date().toISOString(),
+            };
+            localStorage.setItem(
+              `product-comment-${productId}`,
+              JSON.stringify(commentData)
+            );
+            commentUserEl.textContent = username;
+            commentTextEl.textContent = comment;
+          }
+        });
       });
-  }
-
-  function goBack() {
-    window.history.back();
-  }
-</script>
-
-</body>
-
+    </script>
+  </body>
 </html>
