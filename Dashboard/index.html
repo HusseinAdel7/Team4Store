@@ -22,7 +22,7 @@
       <!-- Sidebar -->
       <nav id="sidebar" class="bg-dark text-white">
         <div class="sidebar-header">
-          <h3>Furniture Admin</h3>
+          <a href="/Index.html"> <h3>Furniture Admin</h3> </a>
         </div>
 
         <ul class="list-unstyled components">
@@ -250,6 +250,17 @@
       }
 
       document.addEventListener("DOMContentLoaded", displayOrders);
+
+      //   **********************************************************
+      const user = JSON.parse(localStorage.getItem("userCredentials"));
+
+      if (!user || user.role !== "Admin") {
+        // Not logged in or not an admin
+        alert("Access denied. Admins only.");
+        window.location.href = "/AccessDenied.html";
+      }
+
+      // *******************************************************
     </script>
   </body>
 </html>
