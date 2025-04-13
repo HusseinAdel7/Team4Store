@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+
   function loadCart() {
     const storedCart = localStorage.getItem("cart");
     let cart = [];
@@ -134,7 +135,26 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("orderDate").textContent = new Date(
       latestOrder.orderDate
     ).toLocaleString();
-    document.getElementById("orderStatus").textContent = latestOrder.status;
+
+    const orderStatusElement = document.getElementById("orderStatus");
+    orderStatusElement.textContent = latestOrder.status;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get("payment");
+    const cardType = urlParams.get("type");
+    const cardLastFour = urlParams.get("card");
+
+    if (paymentStatus === "success" && latestOrder.payment) {
+      const paymentInfo = document.createElement("p");
+      paymentInfo.innerHTML = `<br> Paid with ${cardType || "Card"} ending in ${
+        cardLastFour || latestOrder.payment.cardNumber || ""
+      } <br>`;
+      // Insert payment info after order status within the same container
+      orderStatusElement.parentNode.insertBefore(
+        paymentInfo,
+        orderStatusElement.nextSibling
+      );
+    }
 
     document.getElementById("userEmail").textContent = latestOrder.user.email;
     document.getElementById("userEmailDetail").textContent =
@@ -182,6 +202,29 @@ document.addEventListener("DOMContentLoaded", function () {
     ).textContent = `$${latestOrder.total.toFixed(2)}`;
   }
 
+  function checkPaymentStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get("payment");
+
+    if (paymentStatus === "success") {
+      successMessage.classList.remove("d-none");
+      mainSection.style.display = "none";
+
+      countryInput.value = "";
+      cityInput.value = "";
+      addressInput.value = "";
+      detailsInput.value = "";
+      btnText.style.display = "inline";
+      loadingSpinner.style.display = "none";
+      validateForm(false);
+      Object.keys(touched).forEach((key) => (touched[key] = false));
+
+      displayOrderDetails();
+
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
   placeOrderBtn.addEventListener("click", function () {
     if (!placeOrderBtn.disabled) {
       const cart = loadCart();
@@ -204,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         shipping: {
           country: countryInput.value.trim(),
-          city: countryInput.value.trim(),
+          city: cityInput.value.trim(),
           address: addressInput.value.trim(),
           details: detailsInput.value.trim(),
         },
@@ -225,31 +268,16 @@ document.addEventListener("DOMContentLoaded", function () {
         status: "Pending",
       };
 
-      setTimeout(() => {
-        const existingOrders = JSON.parse(
-          localStorage.getItem("orderDetails") || "[]"
-        );
-        existingOrders.push(orderDetails);
-        localStorage.setItem("orderDetails", JSON.stringify(existingOrders));
+      localStorage.setItem("pendingOrder", JSON.stringify(orderDetails));
 
-        localStorage.removeItem("cart");
-        mainSection.style.display = "none";
-        successMessage.classList.remove("d-none");
-        countryInput.value = "";
-        cityInput.value = "";
-        addressInput.value = "";
-        detailsInput.value = "";
-        btnText.style.display = "inline";
-        loadingSpinner.style.display = "none";
-        validateForm(false);
-        Object.keys(touched).forEach((key) => (touched[key] = false));
-        displayOrderDetails();
-        console.log("Order details saved:", orderDetails);
-      }, 2000);
+      setTimeout(() => {
+        window.location.href = "payment.html";
+      }, 3000);
     }
   });
 
   loadUserData();
   loadCart();
   validateForm(false);
+  checkPaymentStatus();
 });

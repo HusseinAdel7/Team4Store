@@ -1,5 +1,6 @@
 const ordersContainer = document.getElementById("ordersContainer");
 const alertBox = document.getElementById("alertBox");
+
 function showAlert(message) {
   alertBox.textContent = message;
   alertBox.classList.remove("d-none");
@@ -64,9 +65,13 @@ function returnOrder(index) {
     showAlert(` "${item.name}" was not returned.`);
   }
 }
+
 renderOrders();
+
 function logout() {
   localStorage.removeItem("userCredentials");
+
   alert("You have been logged out.");
+
   window.location.href = "/";
 }
