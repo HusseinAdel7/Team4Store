@@ -41,7 +41,19 @@ function renderWishlist() {
 }
 
 function addToCart(index) {
-    cart.push(wishlist[index]);
+    let product = { ...wishlist[index] };
+
+    // تأكد من أن السعر رقم وليس string
+    if (typeof product.price === 'string') {
+        product.price = parseFloat(product.price);
+    }
+
+    // حدد كمية ابتدائية للمنتج
+    if (!product.quantity || isNaN(product.quantity)) {
+        product.quantity = 1;
+    }
+
+    cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
     removeFromWishlist(index);
 }
@@ -52,10 +64,28 @@ function removeFromWishlist(index) {
 }
 
 function moveAllToCart() {
-    cart = cart.concat(wishlist);
+    let updatedWishlist = wishlist.map(product => {
+        let updatedProduct = { ...product };
+
+        // تحويل السعر إلى رقم إذا كان string
+        if (typeof updatedProduct.price === "string") {
+            updatedProduct.price = parseFloat(updatedProduct.price);
+        }
+
+        // إضافة كمية ابتدائية إذا مش موجودة أو غير صالحة
+        if (!updatedProduct.quantity || isNaN(updatedProduct.quantity)) {
+            updatedProduct.quantity = 1;
+        }
+
+        return updatedProduct;
+    });
+
+    cart = cart.concat(updatedWishlist);
     wishlist = [];
+
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
     renderWishlist();
 }
 
