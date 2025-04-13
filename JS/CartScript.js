@@ -30,12 +30,20 @@ function renderCart() {
     cart.forEach((item, index) => {
         let subtotal = item.price * item.quantity;
         total += subtotal;
-
+        
         cartContainer.innerHTML += `
             <div class="cart-item">
                 <img src="${item.image}" alt="${item.name}">
-                <span>${item.name} - $${item.price}</span>
-                <input type="number" value="${item.quantity}" min="1" class="quantity" data-index="${index}">
+                <span>${item.name}</span>
+                <input 
+                    type="number" 
+                    value="${item.quantity}" 
+                    min="1" 
+                    max="${item.stockQuantity}" 
+                    class="quantity" 
+                    data-index="${index}"
+                    oninput="validateQuantity(this, ${item.stockQuantity})"
+                >
                 <span class="subtotal">$${subtotal}</span>
                 <button class="remove-btn" onclick="removeItem(${index})">X</button>
             </div>`;
@@ -45,6 +53,22 @@ function renderCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
     attachEventListeners();
 }
+function validateQuantity(input, maxStock) {
+    let value = parseInt(input.value);
+    
+    if (isNaN(value) || value < 1) {
+        input.value = 1;
+    } else if (value > maxStock) {
+        input.value = maxStock;
+    }
+
+    // تحديث الكمية في الـ cart
+    const index = parseInt(input.dataset.index);
+    cart[index].quantity = parseInt(input.value);
+
+    renderCart(); // إعادة تحديث العرض والحساب
+}
+
 
 function removeItem(index) {
     cart.splice(index, 1);
