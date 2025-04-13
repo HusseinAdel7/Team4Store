@@ -131,8 +131,8 @@ referrerpolicy="no-referrer"
     <div class="container">
         <h2>Your Cart</h2>
         <div class="cart-header">
-            <span>Product</span>
-            <span>Price</span>
+            <span>Product Image</span>
+            <span>Name</span>
             <span>Quantity</span>
             <span>Subtotal</span>
             <span>Action</span>
@@ -140,8 +140,8 @@ referrerpolicy="no-referrer"
         <div id="cart-items"></div>
         <div class="cart-footer">
             <div class="coupon">
-                <input type="text" placeholder="Coupon Code">
-                <button class="apply-btn">Apply Coupon</button>
+              <input type="text" placeholder="Coupon Code" oninput="this.value = this.value.replace(/-/g, '')">
+              <button class="apply-btn">Apply Coupon</button>
             </div>
             <div class="checkout">
                 <span>Total: $<span id="total-price">0</span></span>
