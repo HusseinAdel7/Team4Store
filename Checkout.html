@@ -113,6 +113,32 @@
         </div>
       </div>
     </nav>
+    <div
+      id="loginRequired"
+      class="container my-5 d-none"
+      style="
+        min-height: 100vh;
+        justify-items: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      "
+    >
+      <div class="row justify-content-center">
+        <div class=" ">
+          <div class="text-center">
+            <div class="card-body">
+              <h2 class="display-6 fw-bold text-danger mb-4">Login Required</h2>
+              <p class="lead mb-4">
+                You must be logged in to access the checkout page.
+              </p>
+              <a href="/Login.html" class="btn btn-danger">Go to Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <section id="mainSection" style="min-height: 100vh">
       <div
@@ -254,7 +280,12 @@
               </div>
               <div class="mt-3">
                 <label class="form-check">
-                  <input class="form-check-input" type="radio" name="payment" />
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="payment"
+                    checked
+                  />
                   <span>Bank</span>
                   <img src="assets/images/pay.png" alt="Visa" width="190" />
                 </label>
@@ -263,9 +294,12 @@
                     class="form-check-input"
                     type="radio"
                     name="payment"
-                    checked
+                    disabled
                   />
-                  <span>Cash on delivery</span>
+                  <span
+                    >Cash on delivery
+                    <span class="text-danger">not available in your city</span>
+                  </span>
                 </label>
               </div>
               <div class="input-group my-3">
@@ -317,33 +351,79 @@
         </div>
       </div>
     </section>
-
-    <div
-      id="successMessage"
-      style="
-        display: none;
-        text-align: center;
-        color: rgb(15, 180, 15);
-        margin-top: 100px;
-        min-height: 100vh;
-      "
-    >
-      <h2 style="font-size: 80px; font-weight: bold">
-        Order Placed successfully
-      </h2>
-      <p class="fs-3 pt-4">
-        thanks , <span class="fw-bold" id="userEmail"></span> for your order NO.
-        #000003
-      </p>
-
-      <p class="text-black fs-3 pt-4">
-        we have sent to you an email containing order details from our Team 4
-        Store.
-      </p>
-      <p class="text-secondary fs-3 pt-3">
-        this is a temporary message from Abdallah Mokarb until we finish backend
-        APIs.
-      </p>
+    <div id="successMessage" class="container my-5 d-none">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <h2 class="display-4 fw-bold text-success mb-4">
+                Order Placed Successfully!
+              </h2>
+              <p class="lead mb-4">
+                Thank you, <span class="fw-bold" id="userEmail"></span>, for
+                your order No. <span class="fw-bold" id="orderNumber"></span>.
+              </p>
+              <p class="text-muted mb-4">
+                We've sent an email with these details to you from Team 4 Store.
+              </p>
+              <div class="text-start">
+                <h5 class="fw-bold mb-3">Order Summary</h5>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Order Date:</div>
+                  <div class="col-8" id="orderDate"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Status:</div>
+                  <div class="col-8" id="orderStatus"></div>
+                </div>
+                <h5 class="fw-bold mb-3">User Information</h5>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Name:</div>
+                  <div class="col-8" id="userName"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Email:</div>
+                  <div class="col-8" id="userEmailDetail"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Phone:</div>
+                  <div class="col-8" id="userPhone"></div>
+                </div>
+                <h5 class="fw-bold mb-3">Shipping Information</h5>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Country:</div>
+                  <div class="col-8" id="shippingCountry"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">City:</div>
+                  <div class="col-8" id="shippingCity"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Address:</div>
+                  <div class="col-8" id="shippingAddress"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Details:</div>
+                  <div class="col-8" id="shippingDetails"></div>
+                </div>
+                <h5 class="fw-bold mb-3">Items</h5>
+                <div id="orderItems" class="mb-3"></div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Subtotal:</div>
+                  <div class="col-8" id="orderSubtotal"></div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4 fw-bold">Total:</div>
+                  <div class="col-8" id="orderTotal"></div>
+                </div>
+              </div>
+              <a href="/Orders.html" class="btn btn-secondary mt-4"
+                >See all orders</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer id="footer-last" class="text-light" style="background: #000000">
