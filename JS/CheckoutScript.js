@@ -282,8 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
   checkPaymentStatus();
 });
 
-// *********************************************************
-
 const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
 
 if (!userCredentials) {
