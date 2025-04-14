@@ -255,8 +255,6 @@
       const user = JSON.parse(localStorage.getItem("userCredentials"));
 
       if (!user || user.role !== "Admin") {
-        // Not logged in or not an admin
-        alert("Access denied. Admins only.");
         window.location.href = "/AccessDenied.html";
       }
 
