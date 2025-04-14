@@ -1,4 +1,4 @@
-const endDate = new Date("April 14, 2025 00:00:00 PDT").getTime();
+const endDate = new Date("April 15, 2025 00:00:00 PDT").getTime();
 const countdown = setInterval(() => {
   const now = new Date().getTime();
   const timeLeft = endDate - now;
