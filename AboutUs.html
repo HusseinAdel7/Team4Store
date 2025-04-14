@@ -47,16 +47,22 @@
               >
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="Products.html">Products</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="ContactUs.html">Contact</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="AboutUs.html">About</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="loginNavItem">
               <a class="nav-link" href="Login.html">Login</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="registerNavItem">
               <a class="nav-link" href="Register.html">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Dashboard/index.html">Dashboard</a>
             </li>
           </ul>
 
@@ -74,7 +80,11 @@
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
-
+          <li class="nav-item d-none navbar-nav list-unstyled" id="userNavItem">
+            <a class="nav-link" href="#">
+              <span id="userNameDisplay"></span>
+            </a>
+          </li>
           <div class="d-flex gap-10 justify-content-between p-2">
             <li class="nav-item dropdown list-unstyled">
               <a
@@ -93,22 +103,29 @@
               >
                 <li><a class="dropdown-item" href="Orders.html">Orders</a></li>
                 <li>
-                  <a class="dropdown-item" href="Settings.html">Settings</a>
+                  <a class="dropdown-item" href="/Dashboard/index.html"
+                    >Dashboard</a
+                  >
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item text-danger" href="#">Logout</a>
+                  <a
+                    class="dropdown-item text-danger"
+                    href="#"
+                    onclick="logout()"
+                    >Logout</a
+                  >
                 </li>
               </ul>
             </li>
 
             <a class="nav-link" href="Cart.html" style="padding-right: 20px">
               <i class="fa-solid fa-cart-shopping fa-2xl"></i>
-              <span id="cartCount" class="badge bg-danger">0</span>
+              <!-- <span id="cartCount" class="badge bg-danger">0</span> -->
             </a>
             <a class="nav-link" href="Wishlist.html">
               <i class="far fa-heart fa-2xl"></i>
-              <span id="wishlistCount" class="badge bg-danger">0</span>
+              <!-- <span id="wishlistCount" class="badge bg-danger">0</span> -->
             </a>
           </div>
         </div>
@@ -438,13 +455,12 @@
         </div>
       </div>
     </section>
-
     <footer id="footer-last" class="text-light" style="background: #000000">
       <div class="container-fluid py-4">
         <div class="row">
           <div class="col-lg-4 col-md-3 mb-4 mb-md-0">
-            <a class="navbar-brand" href="#"> Team 4 Store Powered by</a>
-            <img src="/assets/images/svg/am-gray.svg" alt="" height="80" />
+            <a class="navbar-brand" href="#"> Team 4 Store </a>
+            <!-- <img src="/assets/images/svg/am-gray.svg" alt="" height="80" /> -->
             <p></p>
           </div>
           <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0">
@@ -673,7 +689,8 @@
         <div class="container-fluid">
           <div class="row" style="background-color: #111111; padding-top: 8px">
             <div class="col-md-3 text-light" id="copyright">
-              &copy; 2025 All rights reserved Abdallah Mokarb
+              all copyrights reserved @2025 team 4 store
+              <p id="footerText" class=" "></p>
             </div>
             <div class="col-md-9">
               <ul class="list-unstyled style" style="float: right">
