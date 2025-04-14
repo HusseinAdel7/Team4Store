@@ -286,7 +286,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
 
-if (userCredentials) {
+if (!userCredentials) {
+  alert("not logged in .. you must be logged in to complete your checkout");
+  window.location.href = "/Login.html";
+} else {
   const loginNav = document.getElementById("loginNavItem");
   const registerNav = document.getElementById("registerNavItem");
   if (loginNav) loginNav.style.display = "none";
