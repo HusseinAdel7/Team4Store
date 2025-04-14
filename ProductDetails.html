@@ -159,11 +159,11 @@
           Save Comment
         </button>
 
-        <div class="mt-4">
-          <h5>Previous Comment:</h5>
+        <div class="mt-5">
+          <h5 class="mb-2 text-secondary">Product Comments:</h5>
           <div id="savedComment" class="border rounded p-3 bg-light">
-            <strong id="commentUser">Guest</strong>:
-            <span id="commentText">No comment yet.</span>
+            <strong id="commentUser" class="text-primary">Guest</strong>:
+            <span id="commentText" class="text-dark">No comment yet.</span>
           </div>
         </div>
       </div>
@@ -173,7 +173,6 @@
       document.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
         const productId = parseInt(params.get("id"));
-
         if (!productId) {
           console.error("Invalid product ID in URL");
           return;
@@ -214,7 +213,6 @@
 
       function addToCart(productId) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
         fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
           .then((res) => res.json())
           .then((products) => {
@@ -256,7 +254,6 @@
         const savedRating =
           localStorage.getItem(`product-rating-${productId}`) || 0;
         let currentRating = parseInt(savedRating);
-
         function renderStars(rating) {
           starContainer.innerHTML = "";
           for (let i = 1; i <= 5; i++) {
@@ -282,7 +279,6 @@
             starContainer.appendChild(star);
           }
         }
-
         function highlightStars(rating) {
           const stars = starContainer.querySelectorAll(".star");
           stars.forEach((star, index) => {
@@ -295,15 +291,12 @@
         }
 
         renderStars(currentRating);
-
         const commentInput = document.getElementById("commentInput");
         const saveCommentBtn = document.getElementById("saveCommentBtn");
         const commentUserEl = document.getElementById("commentUser");
         const commentTextEl = document.getElementById("commentText");
-
         const userData = JSON.parse(localStorage.getItem("userCredentials"));
         const username = userData?.name || "Guest";
-
         const savedCommentData = JSON.parse(
           localStorage.getItem(`product-comment-${productId}`)
         );
