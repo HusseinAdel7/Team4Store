@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+    />
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
@@ -22,22 +25,19 @@
     <style>
       body {
         font-family: "Poppins", sans-serif;
-
         background: #f9f9f9;
-
         text-align: center;
         padding: 20px;
         color: #333;
       }
 
       .product-container {
-        width: 380px;
+        width: 100%;
         margin: auto;
         background: white;
         padding: 20px;
         border-radius: 15px;
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         overflow: hidden;
         border: 1px solid #ddd;
@@ -50,7 +50,7 @@
 
       .product-container img {
         width: 100%;
-        height: 200px;
+        height: 400px;
         object-fit: cover;
         border-radius: 10px;
         transition: transform 0.3s ease;
@@ -99,9 +99,37 @@
         font-size: 2rem;
         color: #ddd;
         cursor: pointer;
+        transition: color 0.2s ease;
       }
+
       .star-rating .star.filled {
         color: #ffc107;
+      }
+
+      .star-rating .star:hover {
+        color: #ffca2c;
+      }
+
+      .custom-textarea {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        font-family: inherit;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        resize: vertical;
+      }
+
+      .custom-textarea:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
       }
     </style>
   </head>
@@ -112,20 +140,21 @@
 
     <section>
       <div class="container mt-4">
-        <h4>Rate this product by Leave a comment :</h4>
-        <div id="rating-stars" class="mb-3"></div>
-      </div>
-      <div class="container mt-4">
+        <h4 class="mb-2">Rate this product:</h4>
+        <div
+          id="rating-stars"
+          class="mb-3 d-flex justify-content-center star-rating"
+        ></div>
+
+        <h5 class="mt-4 mb-2">Leave a Comment:</h5>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"></label>
-          <div class="mb-3">
-            <textarea
-              class="form-control"
-              id="commentInput"
-              rows="3"
-            ></textarea>
-          </div>
+          <textarea
+            class="custom-textarea"
+            id="commentInput"
+            rows="3"
+          ></textarea>
         </div>
+
         <button id="saveCommentBtn" class="btn btn-primary">
           Save Comment
         </button>
@@ -139,6 +168,7 @@
         </div>
       </div>
     </section>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
@@ -149,7 +179,6 @@
           return;
         }
 
-        // Fetch all products, then find the one with matching ID
         fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
           .then((res) => res.json())
           .then((products) => {
@@ -186,7 +215,6 @@
       function addToCart(productId) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // Fetch all again to find the product info
         fetch("https://furnistyle.runasp.net/api/Furniture/AllFurniture")
           .then((res) => res.json())
           .then((products) => {
@@ -218,11 +246,12 @@
         window.history.back();
       }
 
-      // ******************************************************************
-      // rating
+      function goHome() {
+        window.location.href = "/";
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         const productId = new URLSearchParams(window.location.search).get("id");
-
         const starContainer = document.getElementById("rating-stars");
         const savedRating =
           localStorage.getItem(`product-rating-${productId}`) || 0;
@@ -232,13 +261,17 @@
           starContainer.innerHTML = "";
           for (let i = 1; i <= 5; i++) {
             const star = document.createElement("i");
-            star.className = `bi ${
-              i <= rating
-                ? "bi-star-fill text-warning"
-                : "bi-star text-secondary"
-            } fs-3 me-1`;
-            star.style.cursor = "pointer";
+            star.className = `fa-star ${i <= rating ? "filled" : ""} star`;
+            star.classList.add("fas");
             star.setAttribute("data-value", i);
+
+            star.addEventListener("mouseover", () => {
+              highlightStars(i);
+            });
+
+            star.addEventListener("mouseout", () => {
+              highlightStars(currentRating);
+            });
 
             star.addEventListener("click", () => {
               currentRating = i;
@@ -248,6 +281,17 @@
 
             starContainer.appendChild(star);
           }
+        }
+
+        function highlightStars(rating) {
+          const stars = starContainer.querySelectorAll(".star");
+          stars.forEach((star, index) => {
+            if (index < rating) {
+              star.classList.add("filled");
+            } else {
+              star.classList.remove("filled");
+            }
+          });
         }
 
         renderStars(currentRating);
@@ -286,6 +330,7 @@
             );
             commentUserEl.textContent = username;
             commentTextEl.textContent = comment;
+            commentInput.value = "";
           }
         });
       });
