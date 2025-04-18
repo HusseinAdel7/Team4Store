@@ -246,7 +246,7 @@
       }
 
       function viewOrder(orderNumber) {
-        window.location.href = `/Dashboard/orders.html?orderNumber=${orderNumber}`;
+        window.location.href = `./Dashboard/orders.html?orderNumber=${orderNumber}`;
       }
 
       document.addEventListener("DOMContentLoaded", displayOrders);
@@ -255,7 +255,7 @@
       const user = JSON.parse(localStorage.getItem("userCredentials"));
 
       if (!user || user.role !== "Admin") {
-        window.location.href = "./AccessDenied.html";
+        window.location.href = "../AccessDenied.html";
       }
 
       // *******************************************************
