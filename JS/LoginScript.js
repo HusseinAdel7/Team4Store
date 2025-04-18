@@ -120,7 +120,7 @@ async function loginUser() {
     console.error("Error:", error);
     alert(error.message || "An error occurred. Please try again.");
   } finally {
-    // loginBtn.disabled  = false;
+    loginBtn.disabled  = false;
     btnText.style.display = "inline";
     loadingSpinner.style.display = "none";
   }
