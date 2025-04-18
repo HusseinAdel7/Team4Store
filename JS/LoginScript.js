@@ -49,9 +49,12 @@ function validateForm() {
     passwordError.style.display = "none";
   }
 
+  
+
   loginBtn.disabled = !isValid;
   loginBtn.style.opacity = isValid ? "1" : "0.3";
   loginBtn.style.cursor = isValid ? "pointer" : "not-allowed";
+
 
   return isValid;
 }
@@ -62,7 +65,7 @@ passwordInput.addEventListener("input", validateForm);
 async function loginUser() {
   if (!validateForm()) return;
 
-  loginBtn.disabled = true;
+  loginBtn.disabled  = true;
   btnText.style.display = "none";
   loadingSpinner.style.display = "inline-block";
 
@@ -117,7 +120,7 @@ async function loginUser() {
     console.error("Error:", error);
     alert(error.message || "An error occurred. Please try again.");
   } finally {
-    loginBtn.disabled = false;
+    // loginBtn.disabled  = false;
     btnText.style.display = "inline";
     loadingSpinner.style.display = "none";
   }
